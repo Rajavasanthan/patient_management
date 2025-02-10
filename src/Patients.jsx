@@ -1,80 +1,90 @@
+import { PlusCircle } from "lucide-react";
+import { Link } from "react-router";
 
-function Patients() {
+const Patients = () => {
+  const patients = [
+    {
+      name: "John Doe",
+      email: "john.doe@email.com",
+      phone: "(555) 123-4567",
+      gender: "Male",
+      emergencyContact: "Jane Doe (555) 987-6543",
+      insuranceNumber: "INS123456789",
+    },
+    {
+      name: "Jane Smith",
+      email: "jane.smith@email.com",
+      phone: "(555) 234-5678",
+      gender: "Female",
+      emergencyContact: "John Smith (555) 876-5432",
+      insuranceNumber: "INS987654321",
+    },
+  ];
+
   return (
-    <>
-    <div className="relative overflow-x-auto">
-<button className="text-white bg-blue-700 hover:bg-blue-800 m-4 focus:ring-4  focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Create</button>
-
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div className="px-8 py-6">
+      <div className="flex justify-end mb-4">
+        <Link
+        to={"/dashboard/create-patient"}
+          type="button"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+        >
+          {/* <PlusCircle className="h-4 w-4" /> */}
+          Create Patient
+        </Link>
+      </div>
+      <div className="overflow-x-auto shadow-md rounded-lg">
+        <table className="min-w-full bg-white">
+          <thead className="bg-gray-100">
             <tr>
-                <th scope="col" className="px-6 py-3">
-                    Patient name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Email
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Phone Number
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Gender
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Date of Birth
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Address
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Emergency Contact
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Insurance No.
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Blood Group
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Allergies
-                </th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                Patient Name
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                Email
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                Phone Number
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                Gender
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                Emergency Contact
+              </th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                Insurance Number
+              </th>
             </tr>
-        </thead>
-        <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Keerthana
-                </th>
-                <td className="px-6 py-4">
-                    K.12@gmail.com
+          </thead>
+          <tbody className="divide-y divide-gray-200">
+            {patients.map((patient, index) => (
+              <tr key={index} className="hover:bg-gray-50">
+                <td className="px-6 py-4 text-sm text-gray-900">
+                  {patient.name}
                 </td>
-                <td className="px-6 py-4">
-                    9123456789
+                <td className="px-6 py-4 text-sm text-gray-900">
+                  {patient.email}
                 </td>
-                <td className="px-6 py-4">
-                    Female
+                <td className="px-6 py-4 text-sm text-gray-900">
+                  {patient.phone}
                 </td>
-                <td className="px-6 py-4">
-                    12/05/1997
+                <td className="px-6 py-4 text-sm text-gray-900">
+                  {patient.gender}
                 </td>
-                <td className="px-6 py-4">
-                    house No.12, 1st street chennai
+                <td className="px-6 py-4 text-sm text-gray-900">
+                  {patient.emergencyContact}
                 </td>
-                <td className="px-6 py-4">
-                    902151151 - Dad
+                <td className="px-6 py-4 text-sm text-gray-900">
+                  {patient.insuranceNumber}
                 </td>
-                <td className="px-6 py-4">
-                    B+
-                </td>
-                <td className="px-6 py-4">
-                    shellfish
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-    </>
-  )
-}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
 
-export default Patients
+export default Patients;
