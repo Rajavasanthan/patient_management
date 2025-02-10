@@ -5,7 +5,7 @@ function CreatePatient() {
     
       <form className="max-w-sm mx-auto">
 
-        <div className=" grid grid-cols-2 gap-12 content-center max-w-sm mx-auto pt-40">
+        <div className=" grid grid-cols-2 gap-12 content-center max-w-sm mx-auto pt-42">
           <div className="">
             <div className="mb-5">
               <label for="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Patient
