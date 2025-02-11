@@ -29,7 +29,7 @@ function Login() {
         try {
             const loginRep = await axios.post("http://localhost:3000/doctor/login", values);
             if(loginRep.status === 200){
-                window.localStorage.setItem("doc_app_token", loginRep.data.token);
+                window.localStorage.setItem(import.meta.env.VITE_LOCAL_STORAGE_KEY, loginRep.data.token);
                 navigate("/dashboard");
             }
         } catch (error) {

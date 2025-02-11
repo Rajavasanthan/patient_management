@@ -1,6 +1,27 @@
-import { TrendingUp } from 'lucide-react';
-
+import axios from "axios";
+import { TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import.meta.env.VITE_API;
 function Dashboard() {
+  const [totalPatient, setTotalPatient] = useState(null);
+  const getTotalPatient = async () => {
+    try {
+      const totalPatientResp = await axios.get(
+        `${import.meta.env.VITE_API}/patient/total-patients`,{
+          headers : {
+            Authorization : window.localStorage.getItem(import.meta.env.VITE_LOCAL_STORAGE_KEY)
+          }
+        }
+      );
+      setTotalPatient(totalPatientResp.data.totalPatients);
+    } catch (error) {
+      console.log(error)
+      alert("Something went wrong")
+    }
+  };
+  useEffect(() => {
+    getTotalPatient();
+  }, []);
   return (
     <div className="p-8 space-y-6">
       <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
@@ -12,12 +33,14 @@ function Dashboard() {
             <TrendingUp className="w-4 h-4 text-blue-500" />
           </div>
           <p className="text-4xl font-semibold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
-            32
+            {
+              totalPatient ? totalPatient : <div className="h-4 w-32 bg-gray-200 rounded animate-pulse" />
+            }
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

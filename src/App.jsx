@@ -18,7 +18,7 @@ function App() {
         <Route path="patients" element={<Patients />} />
         <Route path="create-patient" element={<CreatePatient />} />
         <Route path="search-patient" element={<SearchPatient />} />
-        <Route path="patient/:id" element={<PatientView />} />
+        <Route path="patient/:puid" element={<PatientView />} />
         <Route path="patient/:id/create-history" element={<CreateHistory />} />
       </Route>
     </Routes>
