@@ -4,7 +4,7 @@ import { User } from "lucide-react";
 import { useNavigate } from "react-router";
 
 function Login() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -27,29 +27,35 @@ function Login() {
       return errors;
     },
     onSubmit: async (values) => {
-        try {
-            const loginRep = await axios.post("http://localhost:3000/doctor/login", values);
-            if(loginRep.status === 200){
-                window.localStorage.setItem(import.meta.env.VITE_LOCAL_STORAGE_KEY, loginRep.data.token);
-                navigate("/dashboard");
-            }
-        } catch (error) {
-            console.error(error);
+      try {
+        const loginRep = await axios.post(
+          `${import.meta.env.VITE_API}/doctor/login`,
+          values
+        );
+        if (loginRep.status === 200) {
+          window.localStorage.setItem(
+            import.meta.env.VITE_LOCAL_STORAGE_KEY,
+            loginRep.data.token
+          );
+          navigate("/dashboard");
         }
+      } catch (error) {
+        console.error(error);
+      }
     },
   });
   return (
     <>
       <section className="bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="flex justify-center">
-        <div className="flex flex-col items-center space-y-4 pb-4">
-          <div className="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center">
-            <User className="w-12 h-12 text-white" />
+          <div className="flex justify-center">
+            <div className="flex flex-col items-center space-y-4 pb-4">
+              <div className="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center">
+                <User className="w-12 h-12 text-white" />
+              </div>
+              <h1 className="text-2xl font-bold text-white">Dr.Dinesh</h1>
+            </div>
           </div>
-          <h1 className="text-2xl font-bold text-white">Dr.Dinesh</h1>
-        </div>
-        </div>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
