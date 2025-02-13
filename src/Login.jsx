@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useFormik } from "formik";
 import { User } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
 function Login() {
   const navigate = useNavigate();
+  const [isLoading,setLoading] = useState(false)
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -28,18 +30,22 @@ function Login() {
     },
     onSubmit: async (values) => {
       try {
+        setLoading(true)
         const loginRep = await axios.post(
           `${import.meta.env.VITE_API}/doctor/login`,
           values
         );
         if (loginRep.status === 200) {
+          setLoading(false)
           window.localStorage.setItem(
             import.meta.env.VITE_LOCAL_STORAGE_KEY,
             loginRep.data.token
           );
           navigate("/dashboard");
         }
+        // setLoading(false)
       } catch (error) {
+        // setLoading(false)
         console.error(error);
       }
     },
@@ -102,9 +108,13 @@ function Login() {
 
                 <button
                   type="submit"
-                  className="w-full  bg-blue-600 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  disabled={isLoading}
+                  className={`w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 ${!isLoading ? 'bg-blue-600' : 'bg-grey-200'}`}
                 >
-                  Sign in
+                {
+                  isLoading ? 'Please wait...' : 'Sign in'
+                }
+                  
                 </button>
               </form>
             </div>
