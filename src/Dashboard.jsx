@@ -3,7 +3,7 @@ import { TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import.meta.env.VITE_API;
 function Dashboard() {
-  const [totalPatient, setTotalPatient] = useState(null);
+  const [totalPatient, setTotalPatient] = useState(0);
   const getTotalPatient = async () => {
     try {
       const totalPatientResp = await axios.get(
