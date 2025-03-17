@@ -50,7 +50,7 @@ const Patients = () => {
                 Patient Name
               </th>
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
-                Email
+                Age
               </th>
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
                 Phone Number
@@ -58,12 +58,12 @@ const Patients = () => {
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
                 Gender
               </th>
-              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+              {/* <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
                 Emergency Contact
-              </th>
-              <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+              </th> */}
+              {/* <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
                 Insurance Number
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -73,7 +73,7 @@ const Patients = () => {
                   {patient.patient_name}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-900">
-                  {patient.patient_email}
+                  {patient.patient_age}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-900">
                   {patient.patient_phone_number}
@@ -81,12 +81,12 @@ const Patients = () => {
                 <td className="px-6 py-4 text-sm text-gray-900">
                   {patient.patient_gender}
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-900">
+                {/* <td className="px-6 py-4 text-sm text-gray-900">
                   {patient.patient_emmergency_contact}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-900">
+                </td> */}
+                {/* <td className="px-6 py-4 text-sm text-gray-900">
                   {patient.patient_insurance_number}
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

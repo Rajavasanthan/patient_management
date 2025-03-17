@@ -8,6 +8,7 @@ function SearchPatient() {
   const [patientName, setPatientName] = useState("");
   const [patientPhoneNumber, setPatientPhoneNumber] = useState("");
   const [patientPuid, setPatientPuid] = useState("");
+  const [searchDate, setSearchDate] = useState("");
 
   const baseUrl = `${import.meta.env.VITE_API}/patient/search_patient`;
 
@@ -17,6 +18,7 @@ function SearchPatient() {
       patient_name: patientName,
       patient_phone_number: patientPhoneNumber,
       patient_puid: patientPuid,
+      visit_date: searchDate,
     };
 
     const queryParams = Object.entries(params)
@@ -40,7 +42,7 @@ function SearchPatient() {
           ),
         },
       });
-      setPatient(allPateintsResp.data);
+      setPatient(allPateintsResp.data.data);
     } catch (error) {
       console.log(error);
       alert("Something went wrong");
@@ -88,6 +90,19 @@ function SearchPatient() {
               value={patientPuid}
             />
           </div>
+          <div>
+            <label className="block text-gray-600 mb-2">
+              Search Visit Date
+            </label>
+            <input
+              type="date"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={(e) => {
+                setSearchDate(e.target.value);
+              }}
+              value={searchDate}
+            />
+          </div>
           <div className="flex items-end">
             <button
               onClick={searchPatient}
@@ -117,11 +132,9 @@ function SearchPatient() {
                 <th className="text-left p-4 text-gray-600 font-medium">
                   Gender
                 </th>
+               
                 <th className="text-left p-4 text-gray-600 font-medium">
-                  Emergency Contact
-                </th>
-                <th className="text-left p-4 text-gray-600 font-medium">
-                  Insurance Number
+                  Next Visit
                 </th>
                 <th className="text-left p-4 text-gray-600 font-medium">
                   View
@@ -134,20 +147,32 @@ function SearchPatient() {
                   key={index}
                   className="border-t border-gray-100 hover:bg-gray-50"
                 >
-                  <td className="p-4 text-gray-800">{patient.patient_name}</td>
-                  <td className="p-4 text-gray-800">{patient.patient_email}</td>
                   <td className="p-4 text-gray-800">
-                    {patient.patient_phone_number}
+                    {patient.patient_id?.patient_name
+                      ? patient.patient_id?.patient_name
+                      : patient.patient_name}
                   </td>
                   <td className="p-4 text-gray-800">
-                    {patient.patient_gender}
+                    {patient.patient_id?.patient_email
+                      ? patient.patient_id?.patient_email
+                      : patient.patient_email}
                   </td>
                   <td className="p-4 text-gray-800">
-                    {patient.patient_emmergency_contact}
+                  {patient.patient_id?.patient_phone_number
+                      ? patient.patient_id?.patient_phone_number
+                      : patient.patient_phone_number}
                   </td>
                   <td className="p-4 text-gray-800">
-                    {patient.patient_insurance_number}
+                  {patient.patient_id?.patient_gender
+                      ? patient.patient_id?.patient_gender
+                      : patient.patient_gender}
                   </td>
+                  <td className="p-4 text-gray-800">
+                  {patient.nextVisitDate
+                      ? (new Date(patient.nextVisitDate).toLocaleDateString("hi-IN"))
+                      : '-'}
+                  </td>
+                  
                   <td className="p-4 text-gray-800">
                     <Link to={`/dashboard/patient/${patient.patient_puid}`}>
                       <Eye />

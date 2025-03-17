@@ -14,7 +14,7 @@ function CreatePatient() {
       patient_email: "",
       patient_phone_number: "",
       patient_gender: "",
-      patient_date_of_birth: "",
+      patient_age: "",
       patient_address: "",
       patient_emmergency_contact: "",
       patient_insurance_number: "",
@@ -24,24 +24,26 @@ function CreatePatient() {
     validate: (values) => {
       const errors = {};
       if (!values.patient_name) errors.patient_name = "Required";
-      if (!values.patient_email) {
-        errors.patient_email = "Required";
-      } else if (
-        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.patient_email)
-      ) {
-        errors.patient_email = "Invalid email address";
+      
+      if(values.patient_email){
+        if (
+          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.patient_email)
+        ) {
+          errors.patient_email = "Invalid email address";
+        }
       }
+
       if (!values.patient_phone_number)
         errors.patient_phone_number = "Required";
       if (!values.patient_gender) errors.patient_gender = "Required";
-      if (!values.patient_date_of_birth)
-        errors.patient_date_of_birth = "Required";
-      if (!values.patient_address) errors.patient_address = "Required";
-      if (!values.patient_emmergency_contact)
-        errors.patient_emmergency_contact = "Required";
-      if (!values.patient_insurance_number)
-        errors.patient_insurance_number = "Required";
-      if (!values.patient_blood_group) errors.patient_blood_group = "Required";
+      if (!values.patient_age)
+        errors.patient_age = "Required";
+      // if (!values.patient_address) errors.patient_address = "Required";
+      // if (!values.patient_emmergency_contact)
+      //   errors.patient_emmergency_contact = "Required";
+      // if (!values.patient_insurance_number)
+      //   errors.patient_insurance_number = "Required";
+      // if (!values.patient_blood_group) errors.patient_blood_group = "Required";
       return errors;
     },
     onSubmit: async (values) => {
@@ -90,10 +92,11 @@ function CreatePatient() {
                 type="text"
                 id="name"
                 {...formik.getFieldProps("patient_name")}
+                onChange={formik.handleChange}
                 className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
               />
-              {formik.touched.name && formik.errors.name && (
-                <div className="text-red-500 text-sm">{formik.errors.name}</div>
+              {formik.touched.patient_name && formik.errors.patient_name && (
+                <div className="text-red-500 text-sm">{formik.errors.patient_name}</div>
               )}
             </div>
 
@@ -110,9 +113,9 @@ function CreatePatient() {
                 {...formik.getFieldProps("patient_email")}
                 className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
               />
-              {formik.touched.email && formik.errors.email && (
+              {formik.touched.patient_email && formik.errors.patient_email && (
                 <div className="text-red-500 text-sm">
-                  {formik.errors.email}
+                  {formik.errors.patient_email}
                 </div>
               )}
             </div>
@@ -130,9 +133,9 @@ function CreatePatient() {
                 {...formik.getFieldProps("patient_phone_number")}
                 className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
               />
-              {formik.touched.phone && formik.errors.phone && (
+              {formik.touched.patient_phone_number && formik.errors.patient_phone_number && (
                 <div className="text-red-500 text-sm">
-                  {formik.errors.phone}
+                  {formik.errors.patient_phone_number}
                 </div>
               )}
             </div>
@@ -154,9 +157,9 @@ function CreatePatient() {
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
-              {formik.touched.gender && formik.errors.gender && (
+              {formik.touched.patient_gender && formik.errors.patient_gender && (
                 <div className="text-red-500 text-sm">
-                  {formik.errors.gender}
+                  {formik.errors.patient_gender}
                 </div>
               )}
             </div>
@@ -166,16 +169,16 @@ function CreatePatient() {
                 htmlFor="dob"
                 className="block text-sm font-medium text-gray-700"
               >
-                Date of Birth
+                Age
               </label>
               <input
-                type="date"
+                type="number"
                 id="dob"
-                {...formik.getFieldProps("patient_date_of_birth")}
+                {...formik.getFieldProps("patient_age")}
                 className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
               />
-              {formik.touched.dob && formik.errors.dob && (
-                <div className="text-red-500 text-sm">{formik.errors.dob}</div>
+              {formik.touched.patient_age && formik.errors.patient_age && (
+                <div className="text-red-500 text-sm">{formik.errors.patient_age}</div>
               )}
             </div>
 
@@ -192,9 +195,9 @@ function CreatePatient() {
                 {...formik.getFieldProps("patient_emmergency_contact")}
                 className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
               />
-              {formik.touched.emergency && formik.errors.emergency && (
+              {formik.touched.patient_emmergency_contact && formik.errors.patient_emmergency_contact && (
                 <div className="text-red-500 text-sm">
-                  {formik.errors.emergency}
+                  {formik.errors.patient_emmergency_contact}
                 </div>
               )}
             </div>
@@ -212,9 +215,9 @@ function CreatePatient() {
                 {...formik.getFieldProps("patient_insurance_number")}
                 className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
               />
-              {formik.touched.insurance && formik.errors.insurance && (
+              {formik.touched.patient_insurance_number && formik.errors.patient_insurance_number && (
                 <div className="text-red-500 text-sm">
-                  {formik.errors.insurance}
+                  {formik.errors.patient_insurance_number}
                 </div>
               )}
             </div>
@@ -241,9 +244,9 @@ function CreatePatient() {
                 <option value="O+">O+</option>
                 <option value="O-">O-</option>
               </select>
-              {formik.touched.bloodGroup && formik.errors.bloodGroup && (
+              {formik.touched.patient_blood_group && formik.errors.patient_blood_group && (
                 <div className="text-red-500 text-sm">
-                  {formik.errors.bloodGroup}
+                  {formik.errors.patient_blood_group}
                 </div>
               )}
             </div>
@@ -262,9 +265,9 @@ function CreatePatient() {
               {...formik.getFieldProps("patient_address")}
               className="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
             ></textarea>
-            {formik.touched.address && formik.errors.address && (
+            {formik.touched.patient_address && formik.errors.patient_address && (
               <div className="text-red-500 text-sm">
-                {formik.errors.address}
+                {formik.errors.patient_address}
               </div>
             )}
           </div>

@@ -101,7 +101,6 @@ const PatientView = () => {
 
   const handleSaveVisit = async () => {
     if (newVisit.visit_notes.trim()) {
-      
       const visitToSave = {
         // id: Date.now(),
         date: new Date().toLocaleDateString("en-US", {
@@ -111,7 +110,7 @@ const PatientView = () => {
         }),
         ...newVisit,
       };
-      console.log(visitToSave)
+      console.log(visitToSave);
       if (editingVisit) {
         await axios.put(
           `${import.meta.env.VITE_API}/patient/${visitToSave._id}/history`,
@@ -138,7 +137,7 @@ const PatientView = () => {
             },
           }
         );
-        visitToSave._id = newVisit.data._id
+        visitToSave._id = newVisit.data._id;
         setVisits([...visits, visitToSave]);
       }
 
@@ -211,9 +210,7 @@ const PatientView = () => {
                 </div>
                 <p className="text-gray-600">
                   {patientDetails.patient_gender} -{" "}
-                  {new Date().getFullYear() -
-                    patientDetails.patient_date_of_birth.split("-")[2]}
-                  y
+                  {patientDetails.patient_age}y
                 </p>
                 <p className="text-gray-600">
                   Blood Group: {patientDetails.patient_blood_group}
@@ -337,7 +334,7 @@ const PatientView = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Prescription
                       </label>
-                      <input
+                      <textarea
                         type="text"
                         value={newVisit.visit_prescription}
                         onChange={(e) =>
@@ -346,8 +343,10 @@ const PatientView = () => {
                             visit_prescription: e.target.value,
                           })
                         }
+                        rows={8}
                         className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                      />
+                      ></textarea>
+                     
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
